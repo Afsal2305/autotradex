@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AutoTradeX</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/vehicles/buy/">Buy</a> |
+    <a href="/vehicles/sell/">Sell</a> |
+    {% if user.is_authenticated %}
+      <a href="/logout/">Logout</a>
+    {% else %}
+      <a href="/login/">Login</a>
+    {% endif %}
+  </nav>
+  <hr>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

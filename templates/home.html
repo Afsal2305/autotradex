@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Welcome to AutoTradeX 🚗</h2>
+
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }} 👋</p>
+    <p><a href="/vehicles/buy/">Browse Vehicles</a></p>
+    <p><a href="/vehicles/sell/">Post a Vehicle for Sale</a></p>
+  {% else %}
+    <p>Please <a href="/login/">login</a> or <a href="/register/">register</a> to get started.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+<h2>All Used Vehicles</h2>
+{% for v in vehicles %}
+  <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+    <h3>{{ v.title }}</h3>
+    <img src="{{ v.image.url }}" width="200">
+    <p><b>Brand:</b> {{ v.brand }}</p>
+    <p><b>Price:</b> ₹{{ v.price }}</p>
+    <p><b>Year:</b> {{ v.year }}</p>
+    <p>{{ v.description }}</p>
+    <p><b>Seller:</b> {{ v.seller.username }}</p>
+  </div>
+{% empty %}
+  <p>No vehicles found.</p>
+{% endfor %}
