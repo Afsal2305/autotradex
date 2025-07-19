@@ -1,0 +1,15 @@
+<h2>Welcome, {{ request.user.username }}</h2>
+<h3>Your Posted Vehicles:</h3>
+
+{% for v in vehicles %}
+  <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+    <h3>{{ v.title }}</h3>
+    <img src="{{ v.image.url }}" width="200">
+    <p><b>Brand:</b> {{ v.brand }}</p>
+    <p><b>Price:</b> ₹{{ v.price }}</p>
+    <p><b>Year:</b> {{ v.year }}</p>
+    <p>{{ v.description }}</p>
+  </div>
+{% empty %}
+  <p>You haven't posted any vehicles yet.</p>
+{% endfor %}

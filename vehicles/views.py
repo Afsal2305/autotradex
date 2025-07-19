@@ -2,9 +2,14 @@ from django.shortcuts import render, redirect
 from .models import Vehicle
 from django.contrib.auth.decorators import login_required
 from .forms import VehicleForm
+
+
 @login_required
+def profile(request):
+    user_vehicles = Vehicle.objects.filter(seller=request.user)
+    return render(request, 'vehicles/profile.html', {'vehicles': user_vehicles})
 
-
+@login_required
 def sell_vehicle(request):
     if request.method == 'POST':
         form = VehicleForm(request.POST, request.FILES)
@@ -21,3 +26,4 @@ def sell_vehicle(request):
 def buy_vehicle(request):
     vehicles = Vehicle.objects.all().order_by('-created_at')
     return render(request, 'vehicles/buy.html', {'vehicles': vehicles})
+
