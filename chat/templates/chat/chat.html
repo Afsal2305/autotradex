@@ -1,0 +1,13 @@
+<h2>Chat with {{ other_user.username }}</h2>
+<div style="height:300px; overflow-y:scroll; border:1px solid #ccc; padding:10px;">
+  {% for msg in messages %}
+    <p><strong>{{ msg.sender.username }}:</strong> {{ msg.content }} <br>
+    <small>{{ msg.timestamp }}</small></p>
+  {% endfor %}
+</div>
+
+<form method="POST">
+  {% csrf_token %}
+  <textarea name="content" placeholder="Type your message..." required></textarea><br>
+  <button type="submit">Send</button>
+</form>

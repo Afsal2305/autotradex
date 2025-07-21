@@ -25,6 +25,7 @@ urlpatterns = [
     path('login/', acc_views.login_view, name='login'),
     path('logout/', acc_views.logout_view, name='logout'),
     path('vehicles/', include('vehicles.urls')),
+    path('', include('chat.urls')),
 
 ]
 from django.conf import settings

@@ -8,6 +8,8 @@
     <p><b>Year:</b> {{ v.year }}</p>
     <p>{{ v.description }}</p>
     <p><b>Seller:</b> {{ v.seller.username }}</p>
+    <p><a href="{% url 'chat_with_user' v.seller.id %}">💬 Chat with Seller</a></p>
+
   </div>
 {% empty %}
   <p>No vehicles found.</p>
