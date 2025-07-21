@@ -9,8 +9,11 @@
     <a href="/vehicles/buy/">Buy</a> |
     <a href="/vehicles/sell/">Sell</a> |
     {% if user.is_authenticated %}
+      <a href="{% url 'chat_inbox' %}">Inbox</a>
+   
       <a href="/logout/">Logout</a>
       <a href="{% url 'profile' %}">My Profile</a>
+
 
     {% else %}
       <a href="/login/">Login</a>
