@@ -1,26 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>AutoTradeX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: #00d2ff;
+      left: 0;
+      bottom: -4px;
+      transition: 0.4s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #00d2ff;
+    }
+
+    main {
+      padding: 100px 20px 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-wrap: wrap;
+        text-align: center;
+        padding: 20px 10px;
+      }
+
+      nav a {
+        margin: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav>
-    <a href="/">Home</a> |
-    <a href="/vehicles/buy/">Buy</a> |
-    <a href="/vehicles/sell/">Sell</a> |
+    <a href="/">Home</a>
+    <a href="/vehicles/buy/">Buy</a>
+    <a href="/vehicles/sell/">Sell</a>
     {% if user.is_authenticated %}
       <a href="{% url 'chat_inbox' %}">Inbox</a>
-   
       <a href="/logout/">Logout</a>
       <a href="{% url 'profile' %}">My Profile</a>
-
-
     {% else %}
       <a href="/login/">Login</a>
     {% endif %}
   </nav>
-  <hr>
-  {% block content %}
+
+  {% block no_main %}
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
   {% endblock %}
 </body>
 </html>

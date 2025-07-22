@@ -1,8 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  .inbox-container {
+    max-width: 500px;
+    margin: 30px auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fefefe;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+
+  .chat-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chat-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.2s;
+  }
+
+  .chat-item:hover {
+    background-color: #e0f7fa;
+  }
+
+  .chat-avatar {
+    width: 45px;
+    height: 45px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    margin-right: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chat-name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .empty-message {
+    text-align: center;
+    color: #999;
+    padding: 30px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #2c3e50;
+  }
+</style>
+
 <h2>Your Chats</h2>
-<ul>
-  {% for user in users %}
-    <li><a href="{% url 'chat_with_user' user.id %}">{{ user.username }}</a></li>
-  {% empty %}
-    <li>No messages yet.</li>
-  {% endfor %}
-</ul>
+<div class="inbox-container">
+  <ul class="chat-list">
+    {% for user in users %}
+      <li>
+        <a href="{% url 'chat_with_user' user.id %}" class="chat-item">
+          <div class="chat-avatar">
+            {{ user.username|first|upper }}
+          </div>
+          <div class="chat-name">{{ user.username }}</div>
+        </a>
+      </li>
+    {% empty %}
+      <li class="empty-message">No chats found.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

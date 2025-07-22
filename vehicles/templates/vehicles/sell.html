@@ -1,9 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Sell Your Vehicle</h2>
-<form method="POST" enctype="multipart/form-data">
+<style>
+  .sell-container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: linear-gradient(to right, #e0f7fa, #fff);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .sell-container h2 {
+    text-align: center;
+    color: #0077b6;
+    margin-bottom: 30px;
+  }
+
+  .sell-container form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sell-container label {
+    font-weight: bold;
+    margin: 12px 0 5px;
+    color: #004d61;
+  }
+
+  .sell-container input,
+  .sell-container select,
+  .sell-container textarea {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .sell-container input:focus,
+  .sell-container textarea:focus,
+  .sell-container select:focus {
+    border-color: #0077b6;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 119, 182, 0.2);
+  }
+
+  .sell-container button {
+    background: #0077b6;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .sell-container button:hover {
+    background: #005f8e;
+  }
+</style>
+
+<div class="sell-container">
+  <h2>🚘 Sell Your Vehicle</h2>
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+        <div style="color: red;">{{ field.errors }}</div>
+      {% endif %}
+    {% endfor %}
     <button type="submit">Post Vehicle</button>
-</form>
+  </form>
+</div>
 {% endblock %}
