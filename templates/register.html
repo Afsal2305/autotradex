@@ -2,145 +2,106 @@
 {% block content %}
 
 <style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+  body {
+    background: #0a0a0a;
+    color: #fff;
     font-family: 'Segoe UI', sans-serif;
   }
 
-  .animated-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* background: linear-gradient(to top, #e0f7fa, #b2ebf2); */
-    overflow: hidden;
-    z-index: -1;
-  }
-
-  .wave {
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    background: url('https://i.imgur.com/wfJ84Of.png') repeat-x;
-    background-size: cover;
-    opacity: 0.3;
-    animation: wave 12s linear infinite;
-    bottom: 0;
-  }
-
-  .wave:nth-child(2) {
-    animation-delay: -6s;
-    opacity: 0.15;
-  }
-
-  @keyframes wave {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .register-box {
-    width: 360px;
-    margin: 0px auto;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.1);
+  .register-page {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 18px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(14px);
-    color: #ffffff;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     text-align: center;
-    position: relative;
-    z-index: 1;
   }
 
-  .register-box h2 {
+  .register-page h2 {
     margin-bottom: 25px;
-    font-size: 26px;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .form-group {
-    margin-bottom: 18px;
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 
-  .form-group input {
+  .register-form input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 14px;
     border-radius: 10px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .register-form input::placeholder {
+    color: rgba(255,255,255,0.6);
+  }
+
+  .register-form input:focus {
+    border-color: #ff7730;
     outline: none;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    transition: 0.3s;
+    box-shadow: 0 0 6px rgba(255, 119, 48, 0.6);
   }
 
-  .form-group input::placeholder {
-    color: #ffffff;
-  }
-
-  .form-group input:focus {
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .register-box button {
-    width: 100%;
+  .register-form button {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    color: white;
+    font-weight: 700;
     padding: 12px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-    color: white;
-    font-weight: 600;
-    font-size: 15px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
   }
 
-  .register-box button:hover {
-    background: linear-gradient(to right, #0072ff, #00c6ff);
+  .register-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 119, 48, 0.5);
   }
 
-  .register-box p {
+  .register-page p {
     margin-top: 20px;
-    font-size: 14px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
   }
 
-  .register-box a {
-    color: #0072ff;
-    font-weight: 500;
-    text-decoration: underline;
+  .register-page a {
+    color: #ff7730;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
   }
 
-  @media screen and (max-width: 400px) {
-    .register-box {
-      width: 90%;
-    }
+  .register-page a:hover {
+    color: #ff9966;
   }
 </style>
 
-<div class="animated-bg">
-  <div class="wave"></div>
-  <div class="wave"></div>
-</div>
-
-<div class="register-box">
-  <h2>Create Your Account</h2>
-  <form method="POST">
+<div class="register-page">
+  <h2>✨ Create Your Account ✨</h2>
+  <form method="POST" class="register-form">
     {% csrf_token %}
-    <div class="form-group">
-      <input type="text" name="username" placeholder="Username" required>
-    </div>
-    <div class="form-group">
-      <input type="email" name="email" placeholder="Email" required>
-    </div>
-    <div class="form-group">
-      <input type="password" name="password" placeholder="Password" required>
-    </div>
-    <div class="form-group">
-      <input type="text" name="phone" placeholder="Phone (optional)">
-    </div>
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="text" name="phone" placeholder="Phone (optional)">
     <button type="submit">Register</button>
   </form>
   <p>Already a member? <a href="/login/">Login here</a></p>

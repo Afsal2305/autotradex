@@ -1,77 +1,100 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
-  .sell-container {
-    max-width: 700px;
-    margin: 60px auto;
-    background: linear-gradient(to right, #e0f7fa, #fff);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  body {
+    background: #0a0a0a; /* same dark background as buy page */
+    color: #fff;
   }
 
-  .sell-container h2 {
+  .sell-page {
+    max-width: 550px; /* reduced from 800px */
+    margin: 80px auto;
+    padding: 25px; /* slightly reduced */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+
+  .sell-page h2 {
     text-align: center;
-    color: #0077b6;
     margin-bottom: 30px;
+    font-size: 2rem; /* slightly smaller */
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .sell-container form {
+  .sell-form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
   }
 
-  .sell-container label {
-    font-weight: bold;
-    margin: 12px 0 5px;
-    color: #004d61;
+  .sell-form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 4px;
   }
 
-  .sell-container input,
-  .sell-container select,
-  .sell-container textarea {
-    padding: 10px 15px;
+  .sell-form input, .sell-form select, .sell-form textarea {
+    width: 100%;
+    padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
   }
 
-  .sell-container input:focus,
-  .sell-container textarea:focus,
-  .sell-container select:focus {
-    border-color: #0077b6;
+  .sell-form input:focus, .sell-form textarea:focus, .sell-form select:focus {
+    border-color: #ff7730;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 119, 182, 0.2);
+    box-shadow: 0 0 6px rgba(255, 119, 48, 0.6);
   }
 
-  .sell-container button {
-    background: #0077b6;
+  .sell-form button {
+    background: linear-gradient(135deg, #ff7730, #7777c6);
     color: white;
-    font-weight: bold;
+    font-weight: 700;
     padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
   }
 
-  .sell-container button:hover {
-    background: #005f8e;
+  .sell-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 119, 48, 0.5);
+  }
+
+  .error-msg {
+    color: #ff4c4c;
+    font-size: 0.85rem;
+    margin-top: -6px;
   }
 </style>
 
-<div class="sell-container">
+<div class="sell-page">
   <h2>🚘 Sell Your Vehicle</h2>
-  <form method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data" class="sell-form">
     {% csrf_token %}
     {% for field in form %}
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-      {{ field }}
-      {% if field.errors %}
-        <div style="color: red;">{{ field.errors }}</div>
-      {% endif %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="error-msg">{{ field.errors }}</div>
+        {% endif %}
+      </div>
     {% endfor %}
     <button type="submit">Post Vehicle</button>
   </form>

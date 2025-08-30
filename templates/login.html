@@ -1,84 +1,107 @@
 {% extends 'base.html' %}
 
-{% block no_main %}
-  {% block content %}
-    <style>
-      .auth-container {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: transparent;
-      }
+{% block content %}
+<style>
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
-      .auth-box {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        width: 350px;
-        text-align: center;
-      }
+  .login-page {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    text-align: center;
+  }
 
-      .auth-box h2 {
-        margin-bottom: 25px;
-        font-size: 28px;
-        font-weight: 600;
-      }
+  .login-page h2 {
+    margin-bottom: 25px;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-      .auth-box input {
-        width: 100%;
-        padding: 12px 15px;
-        margin-bottom: 18px;
-        border: none;
-        border-radius: 8px;
-        outline: none;
-        font-size: 15px;
-      }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 
-      .auth-box button {
-        width: 100%;
-        padding: 12px;
-        background: #00d2ff;
-        color: white;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
+  .login-form input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
 
-      .auth-box button:hover {
-        background: #009ddc;
-      }
+  .login-form input::placeholder {
+    color: rgba(255,255,255,0.6);
+  }
 
-      .auth-box p {
-        margin-top: 20px;
-        font-size: 14px;
-      }
+  .login-form input:focus {
+    border-color: #ff7730;
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 119, 48, 0.6);
+  }
 
-      .auth-box a {
-        color: #00d2ff;
-        text-decoration: none;
-      }
+  .login-form button {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    color: white;
+    font-weight: 700;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+  }
 
-      .auth-box a:hover {
-        text-decoration: underline;
-      }
-    </style>
+  .login-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 119, 48, 0.5);
+  }
 
-    <div class="auth-container">
-      <div class="auth-box">
-        <h2>Login</h2>
-        <form method="POST">
-          {% csrf_token %}
-          <input type="text" name="username" placeholder="Username" required><br>
-          <input type="password" name="password" placeholder="Password" required><br>
-          <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="/register/">Register here</a></p>
-      </div>
-    </div>
-  {% endblock %}
+  .login-page p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .login-page a {
+    color: #ff7730;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .login-page a:hover {
+    color: #ff9966;
+  }
+</style>
+
+<div class="login-page">
+  <h2>🔑 Login</h2>
+  <form method="POST" class="login-form">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+  <p>Don’t have an account? <a href="/register/">Register here</a></p>
+</div>
 {% endblock %}

@@ -2,226 +2,648 @@
 {% block content %}
 
 <style>
-  .hero {
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-    color: white;
-    text-align: center;
-    padding: 80px 20px;
-    border-radius: 0 0 40px 40px;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  .hero h1 {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-  .hero p {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 48, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
 
-  .hero a {
-    text-decoration: none;
-    background: white;
-    color: #0072ff;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: bold;
-    transition: 0.3s;
-  }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(0.5deg); }
+            66% { transform: translateY(30px) rotate(-0.5deg); }
+        }
 
-  .hero a:hover {
-    background: #e0e0e0;
-  }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
 
-  .features {
-    display: flex;
-    justify-content: space-around;
-    padding: 60px 40px;
-    flex-wrap: wrap;
-    text-align: center;
-    background: #f9f9f9;
-  }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
 
-  .feature-box {
-    width: 280px;
-    margin: 20px;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    transition: 0.3s;
-  }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff7730, #7777c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-  .feature-box:hover {
-    transform: translateY(-10px);
-  }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-  .feature-box h3 {
-    margin-bottom: 15px;
-    color: #0072ff;
-  }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
 
-  .feature-box p {
-    font-size: 15px;
-    color: #555;
-  }
+        .nav-links a:hover {
+            color: #ff7730;
+            transform: translateY(-2px);
+        }
 
-  .welcome-msg {
-    text-align: center;
-    margin: 40px 20px 20px;
-    font-size: 18px;
-  }
-</style>
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 2rem;
+        }
 
-<!-- 🌟 Hero Section -->
-<div class="hero">
-  <h1>Welcome to AutoTradeX 🚗</h1>
-  <p>Buy and Sell Used Vehicles Easily and Safely</p>
+        .hero-content {
+            max-width: 800px;
+            z-index: 10;
+        }
 
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, #ff7730, #7777c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff7730, #7777c6);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 119, 48, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #ff7730);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff7730, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 119, 48, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff7730, #7777c6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff7730, #7777c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Welcome Message */
+        .welcome-msg {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-msg p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .welcome-msg strong {
+            color: #ff7730;
+        }
+
+        .welcome-msg a {
+            color: #7777c6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-msg a:hover {
+            color: #ff7730;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(135deg, #ff7730, #7777c6);
+            border-radius: 2px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin: 0.8rem 0;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #ff7730;
+            padding-left: 10px;
+        }
+
+        .footer-column p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        .social-icons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #ff7730, #7777c6);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+<div class="content-wrapper">
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Find Your Perfect Bike 🏍️</h1>
+      <p class="hero-subtitle">Discover premium second-hand bikes from trusted sellers across India</p>
+      
+      {% if user.is_authenticated %}
+        <a href="/vehicles/buy/" class="btn-primary">
+          <i class="fas fa-search"></i>
+          Explore Bikes
+        </a>
+      {% else %}
+        <a href="/register/" class="btn-secondary">
+          <i class="fas fa-rocket"></i>
+          Join Now
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <div class="stats-container">
+      <div class="stat-item fade-in-up">
+        <span class="stat-number">50K+</span>
+        <span class="stat-label">Happy Riders</span>
+      </div>
+      <div class="stat-item fade-in-up">
+        <span class="stat-number">25K+</span>
+        <span class="stat-label">Bikes Sold</span>
+      </div>
+      <div class="stat-item fade-in-up">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Cities</span>
+      </div>
+      <div class="stat-item fade-in-up">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Satisfaction</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features">
+    <h2 class="section-title">Why Choose AutoTradeX?</h2>
+    <p class="section-subtitle">Experience the future of bike trading with our premium platform</p>
+    
+    <div class="features-grid">
+      <div class="feature-box fade-in-up">
+        <div class="feature-icon">
+          <i class="fas fa-motorcycle"></i>
+        </div>
+        <h3>Post Your Bike</h3>
+        <p>Easily upload your bike for sale with HD photos, detailed specifications, and AI-powered pricing recommendations to get the best value.</p>
+      </div>
+      
+      <div class="feature-box fade-in-up">
+        <div class="feature-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h3>Live Chat Support</h3>
+        <p>Connect instantly with buyers and sellers through our advanced messaging system with real-time notifications and multimedia support.</p>
+      </div>
+      
+      <div class="feature-box fade-in-up">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Verified Users</h3>
+        <p>All user accounts go through our comprehensive verification process ensuring a safe, trustworthy marketplace for everyone.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Message -->
   {% if user.is_authenticated %}
-    <a href="/vehicles/buy/">Explore Vehicles</a>
+    <div class="welcome-msg fade-in-up">
+      <p>Hello, <strong>{{ user.username }}</strong> 👋 — Ready to explore amazing bikes or list your own ride?</p>
+    </div>
   {% else %}
-    <a href="/register/">Join Now</a>
+    <div class="welcome-msg fade-in-up">
+      <p>Please <a href="/login/">Login</a> or <a href="/register/">Register</a> to unlock all premium features and start your bike trading journey.</p>
+    </div>
   {% endif %}
 </div>
 
-<!-- 💡 Features Section -->
-<div class="features">
-  <div class="feature-box">
-    <h3>Post Your Vehicle</h3>
-    <p>Easily upload your vehicle for sale with photos, price, and details in just a few clicks.</p>
-  </div>
-  <div class="feature-box">
-    <h3>Live Chat Support</h3>
-    <p>Connect instantly with buyers and sellers using our real-time messaging system.</p>
-  </div>
-  <div class="feature-box">
-    <h3>Verified Users</h3>
-    <p>All user accounts are verified to ensure a safe and trustworthy marketplace.</p>
-  </div>
-</div>
-
-<!-- 🧑‍💻 Welcome Message -->
-{% if user.is_authenticated %}
-  <div class="welcome-msg">
-    <p>Hello, <strong>{{ user.username }}</strong> 👋 — Ready to explore or list your vehicle?</p>
-  </div>
-{% else %}
-  <div class="welcome-msg">
-    <p>Please <a href="/login/">Login</a> or <a href="/register/">Register</a> to access full features.</p>
-  </div>
-{% endif %}
-<!-- 🌟 Footer -->
-<style>
-  footer {
-    background: linear-gradient(to right, #0072ff, #00c6ff);
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-    margin-top: 80px;
-    border-radius: 30px 30px 0 0;
-  }
-
-  .footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    text-align: left;
-    max-width: 1200px;
-    margin: auto;
-  }
-
-  .footer-column {
-    flex: 1;
-    min-width: 200px;
-    margin: 20px;
-  }
-
-  .footer-column h4 {
-    margin-bottom: 15px;
-    border-bottom: 2px solid white;
-    display: inline-block;
-    padding-bottom: 5px;
-  }
-
-  .footer-column ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .footer-column ul li {
-    margin: 8px 0;
-  }
-
-  .footer-column ul li a {
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-  }
-
-  .footer-column ul li a:hover {
-    text-decoration: underline;
-  }
-
-  .social-icons {
-    margin-top: 20px;
-  }
-
-  .social-icons a {
-    color: white;
-    margin: 0 10px;
-    font-size: 20px;
-    transition: 0.3s;
-  }
-
-  .social-icons a:hover {
-    color: #222;
-  }
-
-  .copyright {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #f0f0f0;
-  }
-</style>
-
+<!-- Footer -->
 <footer>
   <div class="footer-content">
     <div class="footer-column">
-      <h4>AutoTradeX 🚗</h4>
-      <p>Your trusted platform to buy and sell pre-owned vehicles across India.</p>
+      <h4>AutoTradeX 🏍️</h4>
+      <p>India's most trusted platform for buying and selling premium second-hand bikes. Join thousands of satisfied riders who found their perfect bike with us.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </div>
+    
     <div class="footer-column">
       <h4>Quick Links</h4>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/vehicles/buy/">Buy Vehicle</a></li>
-        <li><a href="/vehicles/sell/">Sell Vehicle</a></li>
-        <li><a href="/login/">Login</a></li>
+        <li><a href="/vehicles/buy/">Buy Bikes</a></li>
+        <li><a href="/vehicles/sell/">Sell Your Bike</a></li>
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="/contact/">Contact</a></li>
       </ul>
     </div>
+    
     <div class="footer-column">
-      <h4>Contact</h4>
+      <h4>Contact Info</h4>
       <ul>
-        <li>Email: supportautotradex@gmail.com</li>
-        <li>Phone: +91 98765 43210</li>
-        <li>Location: Kerala, India</li>
+        <li>📧 supportautotradex@gmail.com</li>
+        <li>📞 +91 98765 43210</li>
+        <li>📍 Kerala, India</li>
+        <li>🕒 24/7 Customer Support</li>
       </ul>
     </div>
   </div>
-
-  <div class="social-icons">
-    <a href="#"><i class="fab fa-facebook-f"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-linkedin"></i></a>
-  </div>
-
+  
   <div class="copyright">
-    &copy; 2025 AutoTradeX. All Rights Reserved.
+    <p>&copy; 2025 AutoTradeX. All Rights Reserved. | Designed with ❤️ for bike enthusiasts</p>
   </div>
 </footer>
+
+<script>
+        // Smooth scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate
+        document.querySelectorAll('.feature-card, .stat-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to background
+        const bgAnimation = document.querySelector('.bg-animation');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX / window.innerWidth;
+            mouseY = e.clientY / window.innerHeight;
+            
+            bgAnimation.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px)`;
+        });
+
+        // Dynamic user message (this would be handled by Django template in real implementation)
+        const userMessage = document.getElementById('user-message');
+        // Simulating authenticated user - replace with actual Django template logic
+        const isAuthenticated = false; // This would be {{ user.is_authenticated|yesno:"true,false" }}
+        const username = "User"; // This would be {{ user.username }}
+
+        if (isAuthenticated) {
+            userMessage.innerHTML = `<p>Hello, <strong>${username}</strong> 👋 — Ready to explore or list your bike?</p>`;
+        }
+</script>
+
 
 {% endblock %}

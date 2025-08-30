@@ -2,14 +2,31 @@
 {% block content %}
 
 <style>
-  .inbox-container {
-    max-width: 500px;
-    margin: 30px auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #fefefe;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+  body {
+    background: #0a0a0a; /* same dark background */
+    color: #fff;
+  }
+
+  .inbox-page {
+    max-width: 550px;
+    margin: 80px auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+
+  .inbox-page h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .chat-list {
@@ -22,20 +39,24 @@
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-radius: 12px;
     text-decoration: none;
-    color: #333;
-    transition: background 0.2s;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    transition: all 0.3s ease;
   }
 
   .chat-item:hover {
-    background-color: #e0f7fa;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 119, 48, 0.4);
   }
 
   .chat-avatar {
     width: 45px;
     height: 45px;
-    background-color: #4caf50;
+    background: linear-gradient(135deg, #ff7730, #7777c6);
     border-radius: 50%;
     margin-right: 15px;
     color: white;
@@ -44,28 +65,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
 
   .chat-name {
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.9);
   }
 
   .empty-message {
     text-align: center;
-    color: #999;
+    color: rgba(255,255,255,0.7);
     padding: 30px;
-  }
-
-  h2 {
-    text-align: center;
-    margin-top: 20px;
-    color: #2c3e50;
+    font-size: 0.95rem;
   }
 </style>
 
-<h2>Your Chats</h2>
-<div class="inbox-container">
+<div class="inbox-page">
+  <h2>💬 Your Chats</h2>
   <ul class="chat-list">
     {% for user in users %}
       <li>
